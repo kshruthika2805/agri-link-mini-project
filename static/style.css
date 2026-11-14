@@ -1,227 +1,291 @@
-let tamil = false;
-
-function money(value) {
-    return "₹" + Number(value).toLocaleString("en-IN", {
-        maximumFractionDigits: 2
-    });
+* {
+    box-sizing: border-box;
 }
 
-function toggleLanguage() {
-    tamil = !tamil;
-    const btn = document.getElementById("languageBtn");
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f3f8f2;
+    color: #17351e;
+}
 
-    if (tamil) {
-        btn.textContent = "English";
-        document.getElementById("title").textContent = "விவசாயி முடிவு பலகை";
-        document.getElementById("subtitle").textContent = "கணிக்கவும் → ஒப்பிடவும் → இணைக்கவும் → விற்கவும்";
-        document.getElementById("formTitle").textContent = "🌱 பயிர் விவரங்களை உள்ளிடவும்";
-        document.getElementById("farmerNameLabel").textContent = "விவசாயி பெயர்";
-        document.getElementById("locationLabel").textContent = "இடம்";
-        document.getElementById("cropLabel").textContent = "பயிர்";
-        document.getElementById("quantityLabel").textContent = "அளவு (கிலோ)";
-        document.getElementById("qualityLabel").textContent = "தரம்";
-        document.getElementById("productionLabel").textContent = "உற்பத்தி செலவு (₹)";
-        document.getElementById("sellingLabel").textContent = "விற்பனை செலவு (₹)";
-        document.getElementById("analyzeBtn").textContent = "🤖 பயிரை பகுப்பாய்வு செய்யவும்";
-    } else {
-        btn.textContent = "தமிழ்";
-        document.getElementById("title").textContent = "Farmer Decision Dashboard";
-        document.getElementById("subtitle").textContent = "Predict → Compare → Connect → Sell";
-        document.getElementById("formTitle").textContent = "🌱 Enter Crop Details";
-        document.getElementById("farmerNameLabel").textContent = "Farmer Name";
-        document.getElementById("locationLabel").textContent = "Location";
-        document.getElementById("cropLabel").textContent = "Crop";
-        document.getElementById("quantityLabel").textContent = "Quantity (kg)";
-        document.getElementById("qualityLabel").textContent = "Quality";
-        document.getElementById("productionLabel").textContent = "Production Cost (₹)";
-        document.getElementById("sellingLabel").textContent = "Selling Cost (₹)";
-        document.getElementById("analyzeBtn").textContent = "🤖 ANALYZE MY CROP";
+header {
+    background: #146b36;
+    color: white;
+    padding: 18px 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo {
+    font-size: 38px;
+}
+
+h1, h2, p {
+    margin-top: 0;
+}
+
+.brand h1 {
+    margin-bottom: 3px;
+}
+
+.brand p {
+    margin-bottom: 0;
+}
+
+.lang-btn {
+    background: white;
+    color: #146b36;
+    border: 0;
+    padding: 10px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+main {
+    width: 92%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+.hero {
+    background: linear-gradient(135deg, #dff5df, #ffffff);
+    padding: 28px;
+    border-radius: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.hero h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #4b6650;
+}
+
+.card {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input, select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #cbd8cd;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+input:focus, select:focus {
+    outline: 2px solid #8cc79b;
+}
+
+.voice-row {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.voice-btn {
+    border: 1px solid #146b36;
+    background: white;
+    color: #146b36;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.analyze-btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 15px;
+    border: 0;
+    border-radius: 9px;
+    background: #146b36;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.analyze-btn:hover {
+    background: #0d5228;
+}
+
+.error {
+    color: #a40000;
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.metric {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+}
+
+.metric span {
+    display: block;
+    color: #4d6252;
+    margin-bottom: 10px;
+}
+
+.metric strong {
+    display: block;
+    font-size: 24px;
+    color: #146b36;
+}
+
+.metric small {
+    display: inline-block;
+    margin-top: 8px;
+    background: #e5f5e8;
+    padding: 5px 9px;
+    border-radius: 15px;
+}
+
+.recommendation {
+    border-left: 6px solid #146b36;
+}
+
+.recommendation-box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.rec-item {
+    background: #f0f8f1;
+    padding: 14px;
+    border-radius: 10px;
+}
+
+.rec-item b {
+    display: block;
+    color: #146b36;
+    margin-bottom: 5px;
+}
+
+.chart {
+    display: flex;
+    align-items: end;
+    gap: 10px;
+    height: 220px;
+    padding: 20px;
+    border-bottom: 2px solid #9db5a1;
+    background: #fafdf9;
+}
+
+.bar-box {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+
+.bar {
+    width: 70%;
+    min-height: 10px;
+    background: #4caf68;
+    border-radius: 6px 6px 0 0;
+}
+
+.bar-label {
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.bar-value {
+    font-size: 11px;
+    margin-bottom: 3px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #146b36;
+    color: white;
+}
+
+.best-row {
+    background: #e7f7e9;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #55705b;
+}
+
+@media (max-width: 800px) {
+    .grid, .result-grid, .recommendation-box {
+        grid-template-columns: 1fr;
     }
-}
 
-function startVoice() {
-    const SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (!SpeechRecognition) {
-        document.getElementById("voiceStatus").textContent =
-            "Voice input is not supported in this browser.";
-        return;
+    header {
+        padding: 15px;
     }
 
-    const recognition = new SpeechRecognition();
-    recognition.lang = tamil ? "ta-IN" : "en-IN";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    document.getElementById("voiceStatus").textContent = "Listening...";
-
-    recognition.start();
-
-    recognition.onresult = function(event) {
-        const text = event.results[0][0].transcript;
-        document.getElementById("voiceStatus").textContent =
-            "Heard: " + text;
-    };
-
-    recognition.onerror = function() {
-        document.getElementById("voiceStatus").textContent =
-            "Could not understand voice input. Please type the details.";
-    };
-}
-
-async function analyzeCrop() {
-    const errorBox = document.getElementById("errorBox");
-    errorBox.textContent = "";
-
-    const payload = {
-        farmer_name: document.getElementById("farmer_name").value,
-        phone: document.getElementById("phone").value,
-        location: document.getElementById("location").value,
-        crop: document.getElementById("crop").value,
-        quantity: document.getElementById("quantity").value,
-        quality: document.getElementById("quality").value,
-        production_cost: document.getElementById("production_cost").value,
-        selling_cost: document.getElementById("selling_cost").value
-    };
-
-    try {
-        const response = await fetch("/api/analyze", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || "Analysis failed.");
-        }
-
-        showResults(data);
-    } catch (error) {
-        errorBox.textContent = error.message;
-    }
-}
-
-function showResults(data) {
-    document.getElementById("results").classList.remove("hidden");
-
-    document.getElementById("predictedPrice").textContent =
-        money(data.expected_price) + " / kg";
-
-    document.getElementById("expectedRevenue").textContent =
-        money(data.expected_selling_price);
-
-    document.getElementById("nrs").textContent =
-        money(data.best_buyer ? data.best_buyer.net_realisation : data.expected_selling_price);
-
-    document.getElementById("profit").textContent =
-        money(data.expected_profit);
-
-    document.getElementById("trend").textContent =
-        data.trend + " | " + data.best_time;
-
-    const buyer = data.best_buyer;
-
-    if (buyer) {
-        document.getElementById("recommendationText").innerHTML = `
-            <div class="recommendation-box">
-                <div class="rec-item">
-                    <b>🏆 Best Buyer</b>
-                    ${buyer.name}
-                </div>
-                <div class="rec-item">
-                    <b>📍 Location</b>
-                    ${buyer.location}
-                </div>
-                <div class="rec-item">
-                    <b>💰 Buyer Price</b>
-                    ${money(buyer.price)} / kg
-                </div>
-                <div class="rec-item">
-                    <b>🚚 Transport Cost</b>
-                    ${money(buyer.transport_cost)}
-                </div>
-                <div class="rec-item">
-                    <b>📊 Net Realisation</b>
-                    ${money(buyer.net_realisation)}
-                </div>
-                <div class="rec-item">
-                    <b>⏰ Best Time</b>
-                    ${data.best_time}
-                </div>
-            </div>
-        `;
+    main {
+        width: 95%;
     }
 
-    drawChart(data.price_history);
-    drawBuyerTable(data.buyers);
-
-    document.getElementById("results").scrollIntoView({
-        behavior: "smooth"
-    });
-}
-
-function drawChart(history) {
-    const chart = document.getElementById("chart");
-    chart.innerHTML = "";
-
-    if (!history || history.length === 0) {
-        chart.innerHTML = "<p>No price history available.</p>";
-        return;
+    .hero h2 {
+        font-size: 24px;
     }
-
-    const prices = history.map(x => x.price);
-    const min = Math.min(...prices);
-    const max = Math.max(...prices);
-    const range = Math.max(max - min, 1);
-
-    history.slice(-7).forEach(item => {
-        const box = document.createElement("div");
-        box.className = "bar-box";
-
-        const value = document.createElement("div");
-        value.className = "bar-value";
-        value.textContent = "₹" + item.price;
-
-        const bar = document.createElement("div");
-        bar.className = "bar";
-        bar.style.height = `${30 + ((item.price - min) / range) * 65}%`;
-
-        const label = document.createElement("div");
-        label.className = "bar-label";
-        label.textContent = item.date;
-
-        box.appendChild(value);
-        box.appendChild(bar);
-        box.appendChild(label);
-        chart.appendChild(box);
-    });
-}
-
-function drawBuyerTable(buyers) {
-    const tbody = document.getElementById("buyerTable");
-    tbody.innerHTML = "";
-
-    buyers.forEach((buyer, index) => {
-        const tr = document.createElement("tr");
-
-        if (index === 0) {
-            tr.className = "best-row";
-        }
-
-        tr.innerHTML = `
-            <td>${index === 0 ? "🏆 " : ""}${buyer.name}</td>
-            <td>${money(buyer.price)}</td>
-            <td>${buyer.distance} km</td>
-            <td>${money(buyer.transport_cost)}</td>
-            <td>${money(buyer.net_realisation)}</td>
-            <td>${buyer.score}</td>
-        `;
-
-        tbody.appendChild(tr);
-    });
 }
