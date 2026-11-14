@@ -238,6 +238,8 @@ def analyze():
         "message": "Analysis completed successfully."
     })
 
+init_db()
+
 
 
 
