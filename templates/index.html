@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agri-Link | Farmer Decision Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <div class="brand">
+        <div class="logo">🌾</div>
+        <div>
+            <h1>AGRI-LINK</h1>
+            <p>AI Price Advisor & Smart Buyer Matching</p>
+        </div>
+    </div>
+    <button id="languageBtn" class="lang-btn" onclick="toggleLanguage()">தமிழ்</button>
+</header>
+
+<main>
+    <section class="hero">
+        <h2 id="title">Farmer Decision Dashboard</h2>
+        <p id="subtitle">Predict → Compare → Connect → Sell</p>
+    </section>
+
+    <section class="card">
+        <h2 id="formTitle">🌱 Enter Crop Details</h2>
+
+        <div class="grid">
+            <div>
+                <label id="farmerNameLabel">Farmer Name</label>
+                <input id="farmer_name" type="text" placeholder="Enter farmer name">
+            </div>
+
+            <div>
+                <label>Mobile Number</label>
+                <input id="phone" type="text" placeholder="Enter mobile number">
+            </div>
+
+            <div>
+                <label id="locationLabel">Location</label>
+                <input id="location" type="text" placeholder="Example: Thanjavur">
+            </div>
+
+            <div>
+                <label id="cropLabel">Crop</label>
+                <select id="crop">
+                    <option value="Paddy">Paddy</option>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Maize">Maize</option>
+                    <option value="Tomato">Tomato</option>
+                </select>
+            </div>
+
+            <div>
+                <label id="quantityLabel">Quantity (kg)</label>
+                <input id="quantity" type="number" min="1" value="2100">
+            </div>
+
+            <div>
+                <label id="qualityLabel">Quality</label>
+                <select id="quality">
+                    <option>A Grade</option>
+                    <option>B Grade</option>
+                    <option>C Grade</option>
+                </select>
+            </div>
+
+            <div>
+                <label id="productionLabel">Production Cost (₹)</label>
+                <input id="production_cost" type="number" min="0" value="25000">
+            </div>
+
+            <div>
+                <label id="sellingLabel">Selling Cost (₹)</label>
+                <input id="selling_cost" type="number" min="0" value="2100">
+            </div>
+        </div>
+
+        <div class="voice-row">
+            <button class="voice-btn" onclick="startVoice()">🎤 Voice Input</button>
+            <span id="voiceStatus">Voice input is optional.</span>
+        </div>
+
+        <button class="analyze-btn" onclick="analyzeCrop()" id="analyzeBtn">
+            🤖 ANALYZE MY CROP
+        </button>
+
+        <div id="errorBox" class="error"></div>
+    </section>
+
+    <section id="results" class="hidden">
+        <div class="result-grid">
+            <div class="metric">
+                <span>🤖 AI Predicted Price</span>
+                <strong id="predictedPrice">₹0</strong>
+                <small id="trend">Stable</small>
+            </div>
+
+            <div class="metric">
+                <span>💰 Expected Revenue</span>
+                <strong id="expectedRevenue">₹0</strong>
+            </div>
+
+            <div class="metric">
+                <span>💵 Net Realisation</span>
+                <strong id="nrs">₹0</strong>
+            </div>
+
+            <div class="metric">
+                <span>📈 Expected Profit</span>
+                <strong id="profit">₹0</strong>
+            </div>
+        </div>
+
+        <div class="card recommendation">
+            <h2>🏆 Smart Recommendation</h2>
+            <div id="recommendationText"></div>
+        </div>
+
+        <div class="card">
+            <h2>📊 Price Trend</h2>
+            <div id="chart" class="chart"></div>
+        </div>
+
+        <div class="card">
+            <h2>👥 Buyer Comparison</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Buyer</th>
+                        <th>Price/kg</th>
+                        <th>Distance</th>
+                        <th>Transport</th>
+                        <th>Net Realisation</th>
+                        <th>Score</th>
+                    </tr>
+                    </thead>
+                    <tbody id="buyerTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Agri-Link Mini Project | Smart India Hackathon Concept
+</footer>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
